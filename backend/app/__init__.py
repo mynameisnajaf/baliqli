@@ -1,0 +1,1 @@
+"""Balıqçı API application package."""
