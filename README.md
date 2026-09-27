@@ -1,14 +1,16 @@
-# Balıqçı 🎣
+# Baliqli 🎣
 
 Azərbaycan balıqçıları üçün mobil MVP — **foto → AI identifikasiya → ov → kolleksiya albomu**.
 
 Gamification = **Fish Collection album** (token/crypto/coin/points yoxdur). Nailiyyətlər/badges OK.
 
+**Tagline:** *Suları kəşf et · Kolleksiyanı tamamla*
+
 ## Stack
 
 | Layer | Tech |
 |-------|------|
-| Mobile | Flutter (Riverpod, Dio, go_router, flutter_map) |
+| Mobile | Flutter (Riverpod, Dio, go_router, flutter_map, url_launcher) |
 | API | FastAPI + SQLAlchemy + PostgreSQL |
 | AI | `AIService` → `GeminiFishIdentifier` **və ya** `MockFishIdentifier` |
 
@@ -42,6 +44,14 @@ uvicorn app.main:app --reload --port 8080
 ```
 
 > Qeyd: SQLAlchemy üçün `postgresql+psycopg2://` URL-i istifadə edin.
+
+Tutorials-u YouTube linkləri ilə yeniləmək:
+
+```bash
+cd backend && PYTHONPATH=. .venv/bin/python scripts/reseed_tutorials.py
+# və ya
+PYTHONPATH=. .venv/bin/python scripts/init_db.py --refresh-tutorials
+```
 
 ### 4. Flutter
 
@@ -100,7 +110,7 @@ services/ai/
 | GET | `/api/map/activity` | Approx public catches + spots |
 | GET | `/api/map/spots` | Fishing spots |
 | GET | `/api/recipes/` | Recipes |
-| GET | `/api/tutorials/` | Tutorials |
+| GET | `/api/tutorials/` | Tutorials (YouTube thumbnails + video_url) |
 | POST | `/api/tutorials/{id}/complete` | Mark complete |
 | GET | `/api/achievements/` | Achievements |
 | GET | `/api/marketplace/` | Demo products |
@@ -112,7 +122,7 @@ services/ai/
 
 ## MVP vs later
 
-**MVP (indi):** JWT local auth, mock/Gemini scan, collection album, feed, map OSM, recipes/tutorials/marketplace demo.
+**MVP (indi):** JWT local auth, mock/Gemini scan, collection album, feed, map OSM, recipes/tutorials (YouTube)/marketplace demo.
 
 **Later:** Supabase/Firebase auth swap (`AuthProvider` protocol), WebSockets realtime feed, native push, richer Gemini vision, payments.
 
@@ -120,13 +130,15 @@ services/ai/
 
 Bottom nav (AZ): **Ana səhifə | Xəritə | Skan | Lent | Profil**
 
-Theme: deep teal / water blues / soft greens — outdoor fishing aesthetic.
+Theme: deep teal / ocean blues / soft greens — outdoor premium fishing aesthetic.
+
+Təlimlər: YouTube-style kartlar (thumbnail + duration + kategoriya), detalda **YouTube-da izlə**.
 
 ## Local notes (this environment)
 
 - PostgreSQL 17 runs locally; API verified on **port 8080** (`uvicorn`).
 - Docker Engine was **not** installed here — `docker-compose.yml` is ready for when Docker is available (`ports 8000:8000`).
-- Flutter SDK installed at `/opt/flutter` (3.24.5); `flutter analyze` clean.
+- Flutter SDK installed at `/opt/flutter` (3.24.5).
 - Without `GEMINI_API_KEY`, MockFishIdentifier is used automatically.
 
 ### Demo account (after first register)

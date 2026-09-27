@@ -1,1 +1,1 @@
-"""Balıqçı API application package."""
+"""Baliqli API application package."""

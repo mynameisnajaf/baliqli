@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/l10n/strings_az.dart';
+import '../../core/theme/app_theme.dart';
 import '../../providers/data_providers.dart';
 
 class RecipesScreen extends ConsumerWidget {
@@ -14,20 +15,42 @@ class RecipesScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: const Text(Az.recipes)),
       body: recipes.when(
-        data: (list) => ListView.builder(
-          itemCount: list.length,
-          itemBuilder: (_, i) {
-            final r = list[i] as Map;
-            return Card(
-              child: ListTile(
-                leading: const Text('🍲', style: TextStyle(fontSize: 28)),
-                title: Text(r['title_az']?.toString() ?? ''),
-                subtitle: Text('${r['cook_time_min']} dəq · ${r['difficulty']}'),
-                onTap: () => context.push('/recipes/${r['id']}', extra: r),
+        data: (list) => list.isEmpty
+            ? const Center(child: Text(Az.emptyRecipes))
+            : ListView.builder(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+                itemCount: list.length,
+                itemBuilder: (_, i) {
+                  final r = list[i] as Map;
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Material(
+                      color: Colors.white,
+                      elevation: 2,
+                      shadowColor: AppColors.cardShadow,
+                      borderRadius: BorderRadius.circular(18),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        leading: Container(
+                          width: 48,
+                          height: 48,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFFF4E5),
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: const Text('🍲', style: TextStyle(fontSize: 24)),
+                        ),
+                        title: Text(r['title_az']?.toString() ?? '', style: const TextStyle(fontWeight: FontWeight.w700)),
+                        subtitle: Text('${r['cook_time_min']} dəq · ${r['difficulty']}'),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: () => context.push('/recipes/${r['id']}', extra: r),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                      ),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text('$e')),
       ),
@@ -46,14 +69,44 @@ class RecipeDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(recipe['title_az']?.toString() ?? '')),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(20),
         children: [
-          Text(recipe['description_az']?.toString() ?? ''),
-          const SizedBox(height: 12),
-          Text('İnqredientlər', style: Theme.of(context).textTheme.titleMedium),
-          ...ingredients.map((e) => ListTile(dense: true, leading: const Icon(Icons.check), title: Text('$e'))),
-          Text('Addımlar', style: Theme.of(context).textTheme.titleMedium),
-          ...steps.asMap().entries.map((e) => ListTile(dense: true, leading: CircleAvatar(radius: 12, child: Text('${e.key + 1}')), title: Text('${e.value}'))),
+          Text(recipe['description_az']?.toString() ?? '', style: const TextStyle(height: 1.4, color: AppColors.muted)),
+          const SizedBox(height: 16),
+          Text('İnqredientlər', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+          const SizedBox(height: 8),
+          ...ingredients.map(
+            (e) => Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Row(
+                children: [
+                  const Icon(Icons.check_circle, color: AppColors.accent, size: 18),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text('$e')),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text('Addımlar', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+          const SizedBox(height: 8),
+          ...steps.asMap().entries.map(
+            (e) => Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 12,
+                    backgroundColor: AppColors.deepTeal,
+                    child: Text('${e.key + 1}', style: const TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(child: Text('${e.value}', style: const TextStyle(height: 1.35))),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

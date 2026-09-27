@@ -1,7 +1,7 @@
 name: balqici
-description: Balıqçı — Azərbaycan balıqçıları üçün mobil tətbiq
+description: Baliqli — Azərbaycan balıqçıları üçün premium mobil tətbiq
 publish_to: 'none'
-version: 0.1.0+1
+version: 0.2.0+2
 
 environment:
   sdk: '>=3.5.0 <4.0.0'
@@ -23,6 +23,7 @@ dependencies:
   confetti: ^0.7.0
   percent_indicator: ^4.2.3
   google_fonts: ^6.2.1
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:

@@ -6,19 +6,19 @@ import 'core/theme/app_theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const ProviderScope(child: BalqiciApp()));
+  runApp(const ProviderScope(child: BaliqliApp()));
 }
 
-class BalqiciApp extends ConsumerWidget {
-  const BalqiciApp({super.key});
+class BaliqliApp extends ConsumerWidget {
+  const BaliqliApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
-      title: 'Balıqçı',
+      title: 'Baliqli',
       debugShowCheckedModeBanner: false,
-      theme: buildBalqiciTheme(),
+      theme: buildBaliqliTheme(),
       routerConfig: router,
     );
   }

@@ -1,7 +1,7 @@
 /// Central Azerbaijani strings — structure for i18n later.
 class Az {
-  static const appName = 'Balıqçı';
-  static const tagline = 'Kolleksiyanı topla, suları kəşf et';
+  static const appName = 'Baliqli';
+  static const tagline = 'Suları kəşf et · Kolleksiyanı tamamla';
   static const home = 'Ana səhifə';
   static const map = 'Xəritə';
   static const scan = 'Skan';
@@ -16,7 +16,7 @@ class Az {
   static const collection = 'Kolleksiya';
   static const progress = 'İrəliləyiş';
   static const recentCatches = 'Son ovlar';
-  static const tutorials = 'Dərslər';
+  static const tutorials = 'Təlimlər';
   static const recipes = 'Reseptlər';
   static const marketplace = 'Market';
   static const achievements = 'Nailiyyətlər';
@@ -47,6 +47,7 @@ class Az {
   static const mockAi = 'Mock AI rejimi (GEMINI_API_KEY yoxdur)';
   static const noData = 'Məlumat yoxdur';
   static const markComplete = 'Tamamlandı kimi işarələ';
+  static const watchOnYoutube = 'YouTube-da izlə';
   static const azn = 'AZN';
   static const private_ = 'Şəxsi';
   static const followers = 'İzləyicilər';
@@ -56,4 +57,9 @@ class Az {
   static const river = 'Çay';
   static const lake = 'Göl';
   static const rare = 'Nadir';
+  static const emptyFeed = 'Hələ paylaşım yoxdur.\nOvdan sonra Lentdə paylaşın!';
+  static const emptyCatches = 'Hələ ov yoxdur.\nSkan ilə ilk balığınızı əlavə edin.';
+  static const emptyMarket = 'Məhsul tapılmadı';
+  static const emptyRecipes = 'Resept yoxdur';
+  static const emptyTutorials = 'Təlim yoxdur';
 }

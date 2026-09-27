@@ -178,24 +178,70 @@ RECIPES = [
 
 
 TUTORIALS = [
-    dict(title_az="Olta seçimi: başlanğıc", thumbnail_url=None, description_az="Yeni başlayanlar üçün olta və makara seçimi.",
-         content_md="## Olta seçimi\n\n- Uzunluq: 2.7–3.6 m\n- Makara: 2000–4000\n- Misina: 0.18–0.25 mm\n\nKür və göllər üçün orta sərtlik tövsiyə olunur.",
-         difficulty="başlanğıc", duration_min=8, category="equipment"),
-    dict(title_az="Sazan ovu texnikası", thumbnail_url=None, description_az="Sazan üçün yem və gözləmə taktikası.",
-         content_md="## Sazan ovu\n\n1. Yemi əvvəlcədən səpin\n2. Dib yemi istifadə edin\n3. Sakit gözləyin\n4. Balığı tələsik dartmayın",
-         difficulty="orta", duration_min=12, category="fishing"),
-    dict(title_az="Balığı düzgün tutmaq və buraxmaq", thumbnail_url=None, description_az="Catch & release qaydaları.",
-         content_md="## Tutub buraxmaq\n\n- Nəm əllə tutun\n- Hook-u ehtiyatla çıxarın\n- Suda bərpa olunana qədər saxlayın\n- Foto üçün uzun saxlamayın",
-         difficulty="başlanğıc", duration_min=6, category="handling"),
-    dict(title_az="Xəzər sahilində kefal ovu", thumbnail_url=None, description_az="Sahil zonası və yem seçimi.",
-         content_md="## Kefal\n\nSəhər tezdən və axşamüstü daha aktivdir. Yüngül spinner və çörək yemi işə yarayır.",
-         difficulty="orta", duration_min=10, category="fishing"),
-    dict(title_az="Təhlükəsizlik və lisenziya", thumbnail_url=None, description_az="Azərbaycanda balıqçılıq qaydaları haqqında qısa bələdçi.",
-         content_md="## Qaydalar\n\nQorunan növləri (nərə və s.) tutmayın. Yerli qaydalara əməl edin. Təhlükəsizlik jiletini unutmayın.",
-         difficulty="başlanğıc", duration_min=7, category="handling"),
-    dict(title_az="Spinner və wobblerlər", thumbnail_url=None, description_az="Yırtıcı balıq üçün süni yemlər.",
-         content_md="## Süni yem\n\nÇökə və durnabalığı üçün spinner, jerkbait və softbait seçin. Su şəffaflığına görə rəng seçin.",
-         difficulty="orta", duration_min=15, category="equipment"),
+    dict(
+        title_az="Spinning ilə atış: başlanğıc",
+        description_az="Açıq üzlük spinning makara ilə düzgün atış texnikası — yeni başlayanlar üçün.",
+        content_md="## Atış tövsiyələri\n\n- Əli misinaya qoyun, bail-ı açın\n- Ucun 15–20 sm boş buraxın\n- Yumşaq yelləncək, barmağı vaxtında buraxın\n- Yem suya düşəndən sonra bail-ı əllə bağlayın\n\nTəcrübə həyətyanı və ya açıq sahədə başlayın.",
+        video_url="https://www.youtube.com/watch?v=yoauPIoxT5E",
+        thumbnail_url="https://img.youtube.com/vi/yoauPIoxT5E/hqdefault.jpg",
+        difficulty="başlanğıc", duration_min=8, category="fishing",
+    ),
+    dict(
+        title_az="Balıqçılıq düyünləri: Palomar və Clinch",
+        description_az="Qarmaq, yem və fırlanan üçün ən vacib 10 düyün — addım-addım.",
+        content_md="## Düyün məsləhətləri\n\n- Palomar: braid və mono üçün ən möhkəm\n- Improved Clinch: yüngül mono üçün sürətli\n- Düyünü sıxmazdan əvvəl isladın\n- Tag ucunu 2–3 mm saxlayın\n\nPraktikada hər düyünü 5 dəfə təkrarlayın.",
+        video_url="https://www.youtube.com/watch?v=3mKLbGNSvaU",
+        thumbnail_url="https://img.youtube.com/vi/3mKLbGNSvaU/hqdefault.jpg",
+        difficulty="başlanğıc", duration_min=16, category="equipment",
+    ),
+    dict(
+        title_az="Sazan ovu: olta quruluşu",
+        description_az="Sazan üçün çubuq, makara və sadə quraşdırma — sıfırdan.",
+        content_md="## Sazan üçün əsaslar\n\n1. Orta-sərt çubuq (2.7–3.6 m)\n2. Hair rig və ya sadə dib yemi\n3. Yemi əvvəlcədən səpin, sakit gözləyin\n4. Balığı tələsik dartmayın — yorğunlaşdırın\n\nKür və göllərdə qarğıdalı / boilies yaxşı işləyir.",
+        video_url="https://www.youtube.com/watch?v=t2pv64sLFGY",
+        thumbnail_url="https://img.youtube.com/vi/t2pv64sLFGY/hqdefault.jpg",
+        difficulty="orta", duration_min=12, category="fishing",
+    ),
+    dict(
+        title_az="Catch & release: düzgün buraxma",
+        description_az="Balığı sağ-salamat buraxmaq üçün rəsmi təlimatlar.",
+        content_md="## Tutub buraxmaq\n\n- Mümkünsə suda saxlayın\n- Yalnız nəm əllə tutun, qəlsəmələrə toxunmayın\n- Dərin qarmağı zorla çıxarmayın — misinanı kəsin\n- Foto max 30 saniyə\n- Su axınına qarşı bərpa olunana qədər saxlayın\n\nİsti suda (yay) daha ehtiyatlı olun.",
+        video_url="https://www.youtube.com/watch?v=_wEScRTMbKc",
+        thumbnail_url="https://img.youtube.com/vi/_wEScRTMbKc/hqdefault.jpg",
+        difficulty="başlanğıc", duration_min=6, category="handling",
+    ),
+    dict(
+        title_az="Yem və lure seçimi",
+        description_az="Başlayanlar üçün spinner, softbait və rəng seçimi — su şəraitinə görə.",
+        content_md="## Yem seçimi\n\n- Təmiz su: təbii rənglər\n- Bulanıq su: parlaq / kontrast\n- Spinner və spoon — sadə retrieve\n- Soft plastic — yavaş, pauzalı\n\nÇökə və durnabalığı üçün spinner əla başlanğıcdır.",
+        video_url="https://www.youtube.com/watch?v=SamrdgVjpQk",
+        thumbnail_url="https://img.youtube.com/vi/SamrdgVjpQk/hqdefault.jpg",
+        difficulty="başlanğıc", duration_min=10, category="equipment",
+    ),
+    dict(
+        title_az="Method feeder / dib ovu quruluşu",
+        description_az="Method feeder rig — qarğıdalı və pellet ilə dib balıqçılığı.",
+        content_md="## Feeder əsasları\n\n1. Inline feeder + quick-change bead\n2. Qısa hooklength (~10 sm)\n3. Groundbait / mikro pellet qəlibləyin\n4. Eyni nöqtəyə atın, xətti gərgin saxlayın\n\nSazan, çapak və karas üçün idealdır.",
+        video_url="https://www.youtube.com/watch?v=icGScqmXmBo",
+        thumbnail_url="https://img.youtube.com/vi/icGScqmXmBo/hqdefault.jpg",
+        difficulty="orta", duration_min=14, category="equipment",
+    ),
+    dict(
+        title_az="Balığı təmizləmək və file etmək",
+        description_az="Hər növ balığı sadə üsulla file etmək — başlayanlar üçün.",
+        content_md="## File tövsiyələri\n\n- Kəskin, çevik file bıçağı istifadə edin\n- Qəlsənin arxasından bel sümüyünə kəsin\n- Bıçağı sümük boyunca sürüşdürün\n- Dərini quyruqdan ayırın\n- Pin sümükləri cımbızla çıxarın\n\nGigiyena: ayrıca taxta / lövhə istifadə edin.",
+        video_url="https://www.youtube.com/watch?v=OkrJwglv3uk",
+        thumbnail_url="https://img.youtube.com/vi/OkrJwglv3uk/hqdefault.jpg",
+        difficulty="orta", duration_min=12, category="handling",
+    ),
+    dict(
+        title_az="Sahil / surf ovu əsasları",
+        description_az="Sahildən (surf) ov — çubuq, makara və sadə rig seçimi.",
+        content_md="## Sahil ovu\n\n- 3–3.6 m medium-heavy spinning\n- 5000–8000 makara, braid 0.20–0.30\n- Fish-finder və ya high-low rig\n- Pyramid sinker — dalğada tutsun\n\nXəzər sahilində kefal və xəşəm üçün səhər / axşam ən yaxşıdır.",
+        video_url="https://www.youtube.com/watch?v=sGpn10Houwo",
+        thumbnail_url="https://img.youtube.com/vi/sGpn10Houwo/hqdefault.jpg",
+        difficulty="orta", duration_min=15, category="fishing",
+    ),
 ]
 
 
@@ -221,7 +267,19 @@ PRODUCTS = [
 ]
 
 
-def seed_all(db: Session) -> None:
+def refresh_tutorials(db: Session) -> int:
+    """Delete tutorial progress + tutorials, then re-insert current TUTORIALS."""
+    from app.models.content import TutorialProgress
+
+    db.query(TutorialProgress).delete()
+    db.query(Tutorial).delete()
+    for row in TUTORIALS:
+        db.add(Tutorial(**row))
+    db.commit()
+    return len(TUTORIALS)
+
+
+def seed_all(db: Session, *, refresh_tutorials_data: bool = False) -> None:
     if db.query(FishSpecies).count() == 0:
         for i, row in enumerate(FISH_SPECIES):
             db.add(FishSpecies(sort_order=i, **row))
@@ -235,7 +293,9 @@ def seed_all(db: Session) -> None:
         for row in RECIPES:
             db.add(Recipe(**row))
 
-    if db.query(Tutorial).count() == 0:
+    if refresh_tutorials_data:
+        refresh_tutorials(db)
+    elif db.query(Tutorial).count() == 0:
         for row in TUTORIALS:
             db.add(Tutorial(**row))
 

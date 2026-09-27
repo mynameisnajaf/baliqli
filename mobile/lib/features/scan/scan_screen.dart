@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +23,10 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
   Future<void> _pick(ImageSource source) async {
     final x = await picker.pickImage(source: source, imageQuality: 85);
     if (x == null) return;
-    setState(() { loading = true; error = null; });
+    setState(() {
+      loading = true;
+      error = null;
+    });
     try {
       final api = ref.read(apiClientProvider);
       final form = FormData.fromMap({
@@ -49,35 +51,52 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text(Az.scan)),
       body: loading
-          ? const Center(
+          ? Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CircularProgressIndicator(),
-                  SizedBox(height: 16),
-                  Text(Az.identifying),
+                  Container(
+                    padding: const EdgeInsets.all(22),
+                    decoration: BoxDecoration(
+                      color: AppColors.mist,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: const SizedBox(
+                      width: 48,
+                      height: 48,
+                      child: CircularProgressIndicator(strokeWidth: 3, color: AppColors.deepTeal),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(Az.identifying, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+                  const SizedBox(height: 6),
+                  const Text('Bir az gözləyin…', style: TextStyle(color: AppColors.muted)),
                 ],
               ),
             )
           : Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
                   Container(
-                    height: 220,
+                    height: 200,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: AppColors.deepTeal.withOpacity(0.08),
                       borderRadius: BorderRadius.circular(24),
-                      border: Border.all(color: AppColors.waterBlue.withOpacity(0.3), width: 2),
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [AppColors.deepTeal, AppColors.waterBlue],
+                      ),
                     ),
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.document_scanner_outlined, size: 64, color: AppColors.deepTeal),
+                        Icon(Icons.document_scanner_outlined, size: 64, color: Colors.white),
                         SizedBox(height: 12),
-                        Text('Balıq fotosunu seçin', style: TextStyle(fontWeight: FontWeight.w600)),
-                        Text('AI növü müəyyən edəcək (çəki yox)', style: TextStyle(color: AppColors.muted, fontSize: 12)),
+                        Text('Balıq fotosunu seçin', style: TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 18)),
+                        SizedBox(height: 4),
+                        Text('AI növü müəyyən edəcək (çəki yox)', style: TextStyle(color: Colors.white70, fontSize: 13)),
                       ],
                     ),
                   ),
@@ -85,28 +104,80 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
                     const SizedBox(height: 12),
                     Text(error!, style: const TextStyle(color: AppColors.danger)),
                   ],
-                  const Spacer(),
-                  SizedBox(
-                    width: double.infinity,
-                    child: FilledButton.icon(
-                      onPressed: () => _pick(ImageSource.camera),
-                      icon: const Icon(Icons.camera_alt),
-                      label: const Text(Az.pickCamera),
-                    ),
+                  const SizedBox(height: 20),
+                  _sourceCard(
+                    icon: Icons.camera_alt_rounded,
+                    title: Az.pickCamera,
+                    subtitle: 'Canlı foto çəkin',
+                    onTap: () => _pick(ImageSource.camera),
+                    primary: true,
                   ),
                   const SizedBox(height: 12),
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton.icon(
-                      onPressed: () => _pick(ImageSource.gallery),
-                      icon: const Icon(Icons.photo_library),
-                      label: const Text(Az.pickGallery),
-                    ),
+                  _sourceCard(
+                    icon: Icons.photo_library_rounded,
+                    title: Az.pickGallery,
+                    subtitle: 'Mövcud şəkildən seçin',
+                    onTap: () => _pick(ImageSource.gallery),
+                    primary: false,
                   ),
-                  const SizedBox(height: 24),
                 ],
               ),
             ),
+    );
+  }
+
+  Widget _sourceCard({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required VoidCallback onTap,
+    required bool primary,
+  }) {
+    return Material(
+      color: primary ? AppColors.deepTeal : Colors.white,
+      elevation: primary ? 4 : 1,
+      shadowColor: AppColors.cardShadow,
+      borderRadius: BorderRadius.circular(20),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(20),
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: primary ? Colors.white.withOpacity(0.15) : AppColors.mist,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(icon, color: primary ? Colors.white : AppColors.deepTeal, size: 28),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 16,
+                        color: primary ? Colors.white : AppColors.ink,
+                      ),
+                    ),
+                    Text(
+                      subtitle,
+                      style: TextStyle(color: primary ? Colors.white70 : AppColors.muted),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.chevron_right_rounded, color: primary ? Colors.white70 : AppColors.muted),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

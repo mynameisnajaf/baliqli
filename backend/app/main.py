@@ -29,9 +29,9 @@ async def lifespan(app: FastAPI):
 
 settings = get_settings()
 app = FastAPI(
-    title="Balıqçı API",
-    description="Azərbaycan balıqçıları üçün MVP API — skan → kolleksiya axını",
-    version="0.1.0",
+    title="Baliqli API",
+    description="Baliqli — Azərbaycan balıqçıları üçün MVP API — skan → kolleksiya axını",
+    version="0.2.0",
     lifespan=lifespan,
 )
 
@@ -55,5 +55,5 @@ def health():
     return {
         "status": "ok",
         "ai_mode": "mock" if settings.use_mock_ai else "gemini",
-        "app": "Balıqçı",
+        "app": "Baliqli",
     }

@@ -27,6 +27,16 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen> {
   bool busy = false;
 
   @override
+  void dispose() {
+    weight.dispose();
+    length.dispose();
+    location.dispose();
+    bait.dispose();
+    method.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final identify = widget.payload['identify'] as Map<String, dynamic>;
     final species = identify['species'] as Map<String, dynamic>;
@@ -36,57 +46,93 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(species['name_az']?.toString() ?? 'Nəticə')),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
         children: [
           Card(
+            margin: EdgeInsets.zero,
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(18),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
-                      const Text('🐟', style: TextStyle(fontSize: 40)),
-                      const SizedBox(width: 12),
+                      Container(
+                        width: 64,
+                        height: 64,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: AppColors.mist,
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        child: const Text('🐟', style: TextStyle(fontSize: 32)),
+                      ),
+                      const SizedBox(width: 14),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(species['name_az']?.toString() ?? '', style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                            Text(species['scientific_name']?.toString() ?? '', style: const TextStyle(fontStyle: FontStyle.italic, color: AppColors.muted)),
+                            Text(
+                              species['name_az']?.toString() ?? '',
+                              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
+                            ),
+                            Text(
+                              species['scientific_name']?.toString() ?? '',
+                              style: const TextStyle(fontStyle: FontStyle.italic, color: AppColors.muted),
+                            ),
                           ],
                         ),
                       ),
                     ],
                   ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Text('${Az.confidence}: ', style: const TextStyle(fontWeight: FontWeight.w600)),
+                      Text('${(confidence * 100).toStringAsFixed(0)}%', style: const TextStyle(fontWeight: FontWeight.w800, color: AppColors.deepTeal)),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: LinearProgressIndicator(
+                      value: confidence.clamp(0, 1),
+                      minHeight: 8,
+                      color: AppColors.accent,
+                      backgroundColor: AppColors.mist,
+                    ),
+                  ),
                   const SizedBox(height: 12),
-                  Text('${Az.confidence}: ${(confidence * 100).toStringAsFixed(0)}%'),
-                  LinearProgressIndicator(value: confidence.clamp(0, 1), color: AppColors.accent, backgroundColor: const Color(0xFFE0EEF2)),
-                  const SizedBox(height: 8),
-                  Text('${Az.habitat}: ${species['habitat']}'),
-                  Text(species['description_az']?.toString() ?? ''),
+                  Text('${Az.habitat}: ${species['habitat']}', style: const TextStyle(fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 6),
+                  Text(species['description_az']?.toString() ?? '', style: const TextStyle(color: AppColors.muted, height: 1.35)),
                   if (isMock)
                     const Padding(
-                      padding: EdgeInsets.only(top: 8),
+                      padding: EdgeInsets.only(top: 10),
                       child: Chip(label: Text(Az.mockAi), backgroundColor: Color(0xFFFFF3CD)),
                     ),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 16),
+          Text('Ov detalları', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+          const SizedBox(height: 10),
           TextField(controller: weight, decoration: const InputDecoration(labelText: Az.weight), keyboardType: TextInputType.number),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
           TextField(controller: length, decoration: const InputDecoration(labelText: Az.length), keyboardType: TextInputType.number),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
           TextField(controller: location, decoration: const InputDecoration(labelText: Az.location)),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
           TextField(controller: bait, decoration: const InputDecoration(labelText: Az.bait)),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
           TextField(controller: method, decoration: const InputDecoration(labelText: Az.method)),
+          const SizedBox(height: 6),
           SwitchListTile(
+            contentPadding: EdgeInsets.zero,
             title: const Text(Az.released),
             value: released,
+            activeColor: AppColors.accent,
             onChanged: (v) => setState(() => released = v),
           ),
           DropdownButtonFormField<String>(
@@ -99,12 +145,15 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen> {
             ],
             onChanged: (v) => setState(() => privacy = v ?? 'private'),
           ),
-          const SizedBox(height: 20),
-          FilledButton(
-            onPressed: busy ? null : _submit,
-            child: busy
-                ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                : const Text(Az.submitCatch),
+          const SizedBox(height: 22),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: busy ? null : _submit,
+              child: busy
+                  ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                  : const Text(Az.submitCatch),
+            ),
           ),
         ],
       ),
